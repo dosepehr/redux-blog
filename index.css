@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: "vazir";
+    src: url("public/fonts/Vazir.eot");
+    src: url("public/fonts/Vazir.eot?#iefix") format("embedded-opentype"),
+        url("public/fonts/Vazir.woff2") format("woff2"),
+        url("public/fonts/Vazir.woff") format("woff"),
+        url("public/fonts/Vazir.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "tanha";
+    src: url("public/fonts/Tanha.eot");
+    src: url("public/fonts/Tanha.eot?#iefix") format("embedded-opentype"),
+        url("public/fonts/Tanha.woff2") format("woff2"),
+        url("public/fonts/Tanha.woff") format("woff"),
+        url("public/fonts/Tanha.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+html * {
+    font-family: tanha, vazir, tahoma !important;
+}
