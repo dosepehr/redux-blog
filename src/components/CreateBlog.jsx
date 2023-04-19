@@ -13,7 +13,7 @@ const CreateBlog = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         if (blogData.title && blogData.content) {
-            dispatch(blogAdded({ ...blogData, id: nanoid() }));
+            dispatch(blogAdded(blogData.title,blogData.content));
             setBlogData({
                 title: '',
                 content: '',
