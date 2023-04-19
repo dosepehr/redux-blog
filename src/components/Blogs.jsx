@@ -12,9 +12,7 @@ const Blogs = () => {
                             key={blog.id}
                             className='border-2 border-purple-800 rounded-md p-10 mt-5 relative'
                         >
-                            <p className='text-2xl font-bold'>
-                                {blog.title}...
-                            </p>
+                            <p className='text-2xl font-bold'>{blog.title}</p>
                             <p className='text-xl mt-5 mb-10'>
                                 {blog.content.slice(0, 50)}...
                             </p>
