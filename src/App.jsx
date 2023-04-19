@@ -1,8 +1,12 @@
+import { Blogs } from './components';
+
 function App() {
     return (
-        <div className='App'>
-            <h1 className='text-3xl font-bold underline'>Hello world!</h1>
-            <p>متن تستی</p>
+        <div className='app'>
+            <div className='bg-purple-600 text-white text-center font-bold text-3xl py-10'>
+                به وبلاگ ما خوش آمدید :))
+            </div>
+            <Blogs />
         </div>
     );
 }
