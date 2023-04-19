@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import { Blog, Blogs } from '../components';
+import { Blog, Blogs, CreateBlog } from '../components';
 export const routes = createBrowserRouter([
     {
         path: '/',
@@ -16,5 +16,9 @@ export const routes = createBrowserRouter([
                 element: <Blog />,
             },
         ],
+    },
+    {
+        path: '/blog/create-blog',
+        element: <CreateBlog />,
     },
 ]);
