@@ -1,48 +1,52 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
+import { blogAdded } from '../reducers/blogsSlice';
+import { useNavigate } from 'react-router-dom';
 const CreateBlog = () => {
     const [blogData, setBlogData] = useState({});
     const inputChangeHandler = (e) => {
         setBlogData({ ...blogData, [e.target.name]: e.target.value });
     };
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const submitHandler = (e) => {
         e.preventDefault();
         if (blogData.title && blogData.content) {
-            console.log(blogData);
-            dispatch();
+            dispatch(blogAdded({ ...blogData, id: nanoid() }));
             setBlogData({
                 title: '',
                 content: '',
             });
+            navigate('/');
         }
     };
     return (
-        <div>
-            <h2>ساخت پست جدید</h2>
+        <div className='px-10'>
+            <h2 className='text-3xl font-semibold mt-5'>ساخت پست جدید</h2>
             <form autoComplete='off' onSubmit={(e) => submitHandler(e)}>
-                <div className='flex  mt-10 w-fit justify-center items-center'>
+                <div className='flex flex-col mt-10 justify-center'>
                     <label htmlFor='title'>عنوان پست :</label>
                     <input
                         type='text'
                         id='title'
                         name='title'
-                        className='border-2 border-purple-500 mr-5 py-10 px-5'
+                        className='border-2 border-gray-300 mt-5 p-5 w-1/2'
                         onChange={(e) => inputChangeHandler(e)}
                         value={blogData.title}
                     ></input>
                 </div>
-                <div className='flex mt-10 w-fit justify-center items-center'>
+                <div className='flex flex-col mt-10 justify-center'>
                     <label htmlFor='content'>محتوای اصلی :</label>
                     <textarea
                         name='content'
                         id='content'
-                        className='border-2 border-cyan-300 mr-5 py-10 px-5'
+                        className='border-2 border-gray-300 mt-5 py-10 px-5 w-1/2'
                         onChange={(e) => inputChangeHandler(e)}
                         value={blogData.content}
                     ></textarea>
                 </div>
-                <button className='bg-orange-600 text-white px-2 py-3 rounded-md'>
+                <button className='bg-orange-600 text-white px-2 py-3 rounded-md mt-5'>
                     ذخیره پست
                 </button>
             </form>

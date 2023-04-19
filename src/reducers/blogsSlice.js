@@ -16,7 +16,13 @@ const blogsSlice = createSlice({
             content: 'محتوای دومین پست',
         },
     ],
-    reducers: {},
+    reducers: {
+        blogAdded: (state, action) => {
+            state.push(action.payload);
+        },
+    },
 });
+
+export const { blogAdded } = blogsSlice.actions;
 
 export default blogsSlice.reducer;

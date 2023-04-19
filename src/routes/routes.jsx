@@ -15,10 +15,10 @@ export const routes = createBrowserRouter([
                 path: '/blog/:blogId',
                 element: <Blog />,
             },
+            {
+                path: '/blog/create-blog',
+                element: <CreateBlog />,
+            },
         ],
-    },
-    {
-        path: '/blog/create-blog',
-        element: <CreateBlog />,
     },
 ]);
