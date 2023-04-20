@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectAllBlogs } from '../reducers/blogsSlice';
+import { ShowTime } from './';
 const Blogs = () => {
     const blogs = useSelector((state) => selectAllBlogs(state));
     return (
@@ -25,6 +26,9 @@ const Blogs = () => {
                             <p className='text-xl mt-5 mb-10'>
                                 {blog.content.slice(0, 50)}...
                             </p>
+                            <div className='mb-10' >
+                                <ShowTime timestamp={blog.date} />
+                            </div>
                             <Link
                                 to={`/blog/${blog.id}`}
                                 className='bg-cyan-300 px-2 py-3 rounded-lg hover:bg-sky-400 duration-300 active:translate-y-1 visited:bg-purple-500 visited:text-white absolute bottom-2'

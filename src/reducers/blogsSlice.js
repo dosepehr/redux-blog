@@ -6,13 +6,13 @@ const blogsSlice = createSlice({
         blogs: [
             {
                 id: nanoid(),
-                date: new Date().toLocaleString(),
+                date: new Date().toISOString(),
                 title: 'اولین پست',
                 content: 'محتوای اولین پست',
             },
             {
                 id: nanoid(),
-                date: new Date().toLocaleString(),
+                date: new Date().toISOString(),
                 title: 'دومین پست',
                 content: 'محتوای دومین پست',
             },
