@@ -1,14 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectAllBlogs } from '../reducers/blogsSlice';
 const Blogs = () => {
-    const blogs = useSelector((state) => state.blogs);
+    const blogs = useSelector((state) => selectAllBlogs(state));
     return (
         <>
             <div className='flex justify-center'>
                 <Link
-                to='/blog/create-blog'
-                    className='w-3/4 bg-green-500 text-white text-center mt-10 py-10 text-2xl'>
+                    to='/blog/create-blog'
+                    className='w-3/4 bg-green-500 text-white text-center mt-10 py-10 text-2xl'
+                >
                     ساخت بلاگ جدید
                 </Link>
             </div>

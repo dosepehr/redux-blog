@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { blogUpdated } from '../reducers/blogsSlice';
+import { blogUpdated, selectBlogById } from '../reducers/blogsSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 const EditBlog = () => {
     const { blogId } = useParams();
-    const blog = useSelector((state) =>
-        state.blogs.find((blog) => blog.id == blogId)
-    );
+    const blog = useSelector((state) => selectBlogById(state, blogId));
     const [blogData, setBlogData] = useState({
         title: blog.title,
         content: blog.content,

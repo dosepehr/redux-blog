@@ -1,13 +1,21 @@
-import { useParams, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { blogDeleted, selectBlogById } from '../reducers/blogsSlice';
 const Blog = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { blogId } = useParams();
-    const blog = useSelector((state) =>
-        state.blogs.find((blog) => blog.id === blogId)
-    );
+    const blog = useSelector((state) => selectBlogById(state, blogId));
     if (!blog) {
         return <p>پستی که دنبالش میگردی وجود نداره دوست من</p>;
     }
+    const handleDelete = (id) => {
+        if (blog) {
+            dispatch(blogDeleted({ id }));
+            navigate('/');
+        }
+    };
+
     return (
         <div className='px-10 mt-10'>
             <p className='text-2xl font-bold'>{blog.title}</p>
@@ -19,6 +27,13 @@ const Blog = () => {
             >
                 ویرایش پست
             </Link>
+            <button
+                onClick={() => {
+                    handleDelete(blog.id);
+                }}
+            >
+                حذف پست
+            </button>
         </div>
     );
 };
