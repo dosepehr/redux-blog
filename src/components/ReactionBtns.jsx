@@ -1,15 +1,14 @@
 import { useDispatch } from 'react-redux';
 import { blogReacted } from '../reducers/blogsSlice';
 
+const reactionEmoji = {
+    thumbsUp: '👍',
+    hooray: '🎉',
+    heart: '❤️',
+    rocket: '🚀',
+    eyes: '👀',
+};
 const ReactionBtns = ({ blogId, ...reactions }) => {
-    const reactionEmoji = {
-        thumbsUp: '👍',
-        hooray: '🎉',
-        heart: '❤️',
-        rocket: '🚀',
-        eyes: '👀',
-    };
-
     const dispatch = useDispatch();
     const reactionHandler = (name) => {
         dispatch(blogReacted({ blogId, reaction: name }));

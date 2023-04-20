@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { blogDeleted, selectBlogById } from '../reducers/blogsSlice';
-import { ShowAuthor, ShowTime } from './';
+import { ShowAuthor, ShowTime, ReactionBtns } from './';
 const Blog = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -37,6 +37,7 @@ const Blog = () => {
             >
                 ویرایش پست
             </Link>
+            <ReactionBtns blogId={blog.id} {...blog.reactions} />
             <button
                 className='border border-gray-400 rounded-lg px-2 py-3 mr-4 hover:bg-slate-300 duration-300'
                 onClick={() => {
