@@ -62,7 +62,9 @@ const CreateBlog = () => {
                         </option>
                     ))}
                 </select>
-                <button className='bg-orange-600 text-white px-2 py-3 rounded-md mt-5'>
+                <button
+                    className='bg-orange-600 text-white px-2 py-3 rounded-md mt-5'
+                >
                     ذخیره پست
                 </button>
             </form>
