@@ -25,13 +25,14 @@ const blogsSlice = createSlice({
             reducer(state, action) {
                 state.blogs.push(action.payload);
             },
-            prepare(title, content) {
+            prepare(title, content,authorId) {
                 return {
                     payload: {
                         id: nanoid(),
                         date: new Date().toISOString(),
                         title,
                         content,
+                        authorId,
                     },
                 };
             },

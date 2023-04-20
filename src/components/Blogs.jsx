@@ -43,7 +43,7 @@ const Blogs = () => {
                                 </div>
                                 <Link
                                     to={`/blog/${blog.id}`}
-                                    className='bg-cyan-300 px-2 py-3 rounded-lg hover:bg-sky-400 duration-300 active:translate-y-1 visited:bg-purple-500 visited:text-white absolute bottom-2'
+                                    className='bg-cyan-300 px-2 py-3 rounded-lg hover:bg-sky-400 duration-300 visited:bg-purple-500 visited:text-white absolute bottom-2'
                                 >
                                     دیدن کامل پست
                                 </Link>

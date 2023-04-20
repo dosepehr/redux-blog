@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { blogAdded } from '../reducers/blogsSlice';
 import { useNavigate } from 'react-router-dom';
+import { selectAllUsers } from '../reducers/usersSlice';
 const CreateBlog = () => {
+    const users = useSelector((action) => selectAllUsers(action));
     const [blogData, setBlogData] = useState({});
     const inputChangeHandler = (e) => {
         setBlogData({ ...blogData, [e.target.name]: e.target.value });
@@ -11,8 +13,10 @@ const CreateBlog = () => {
     const dispatch = useDispatch();
     const submitHandler = (e) => {
         e.preventDefault();
-        if (blogData.title && blogData.content) {
-            dispatch(blogAdded(blogData.title,blogData.content));
+        if (blogData.title && blogData.content && blogData.authorId) {
+            dispatch(
+                blogAdded(blogData.title, blogData.content, +blogData.authorId)
+            );
             setBlogData({
                 title: '',
                 content: '',
@@ -45,6 +49,19 @@ const CreateBlog = () => {
                         value={blogData.content}
                     ></textarea>
                 </div>
+                <select
+                    className='border-2 border-cyan-400 p-2 ml-4 rounded-lg'
+                    name='authorId'
+                    onChange={(e) => inputChangeHandler(e)}
+                    value={blogData.authorId}
+                >
+                    <option value=''>انتخاب نویسنده</option>
+                    {users.map((user) => (
+                        <option value={user.id} key={user.id}>
+                            {user.name}
+                        </option>
+                    ))}
+                </select>
                 <button className='bg-orange-600 text-white px-2 py-3 rounded-md mt-5'>
                     ذخیره پست
                 </button>
