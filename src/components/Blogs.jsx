@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectAllBlogs } from '../reducers/blogsSlice';
-import { ShowTime, ShowAuthor } from './';
+import { ShowTime, ShowAuthor, ReactionBtns } from './';
 const Blogs = () => {
     const blogs = useSelector((state) => selectAllBlogs(state));
     return (
@@ -23,7 +23,7 @@ const Blogs = () => {
                         .map((blog) => (
                             <div
                                 key={blog.id}
-                                className='border-2 border-purple-800 rounded-md p-10 mt-5 relative'
+                                className='border-2 border-purple-800 rounded-md p-10 mt-5'
                             >
                                 <p className='text-2xl font-bold'>
                                     {blog.title}
@@ -41,9 +41,13 @@ const Blogs = () => {
                                         <ShowAuthor authorId={blog.authorId} />
                                     </div>
                                 </div>
+                                <ReactionBtns
+                                    blogId={blog.id}
+                                    {...blog.reactions}
+                                />
                                 <Link
                                     to={`/blog/${blog.id}`}
-                                    className='bg-cyan-300 px-2 py-3 rounded-lg hover:bg-sky-400 duration-300 visited:bg-purple-500 visited:text-white absolute bottom-2'
+                                    className='bg-cyan-300 px-2 py-3 rounded-lg hover:bg-sky-400 duration-300 visited:bg-purple-500 visited:text-white'
                                 >
                                     دیدن کامل پست
                                 </Link>

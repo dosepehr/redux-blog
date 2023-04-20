@@ -10,6 +10,13 @@ const blogsSlice = createSlice({
                 title: 'اولین پست',
                 content: 'محتوای اولین پست',
                 authorId: 1,
+                reactions: {
+                    thumbsUp: 0,
+                    hooray: 1,
+                    heart: 0,
+                    rocket: 0,
+                    eyes: 0,
+                },
             },
             {
                 id: nanoid(),
@@ -17,6 +24,13 @@ const blogsSlice = createSlice({
                 title: 'دومین پست',
                 content: 'محتوای دومین پست',
                 authorId: 2,
+                reactions: {
+                    thumbsUp: 1,
+                    hooray: 0,
+                    heart: 0,
+                    rocket: 0,
+                    eyes: 0,
+                },
             },
         ],
     },
@@ -25,7 +39,7 @@ const blogsSlice = createSlice({
             reducer(state, action) {
                 state.blogs.push(action.payload);
             },
-            prepare(title, content,authorId) {
+            prepare(title, content, authorId) {
                 return {
                     payload: {
                         id: nanoid(),
@@ -49,6 +63,13 @@ const blogsSlice = createSlice({
                 (item) => item.id !== action.payload.id
             );
         },
+        blogReacted: (state, action) => {
+            const { reaction, blogId } = action.payload;
+            const selectedBlog = state.blogs.find((blog) => blog.id === blogId);
+            if (selectedBlog) {
+                selectedBlog.reactions[reaction]++;
+            }
+        },
     },
 });
 
@@ -56,6 +77,7 @@ export const selectAllBlogs = (state) => state.blogs.blogs;
 export const selectBlogById = (state, blogId) =>
     state.blogs.blogs.find((blog) => blog.id === blogId);
 
-export const { blogAdded, blogUpdated, blogDeleted } = blogsSlice.actions;
+export const { blogAdded, blogUpdated, blogDeleted, blogReacted } =
+    blogsSlice.actions;
 
 export default blogsSlice.reducer;
