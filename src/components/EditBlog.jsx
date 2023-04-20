@@ -4,7 +4,9 @@ import { blogUpdated } from '../reducers/blogsSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 const EditBlog = () => {
     const { blogId } = useParams();
-    const blog = useSelector((state) => state.blogs.find(blog => blog.id == blogId))    
+    const blog = useSelector((state) =>
+        state.blogs.find((blog) => blog.id == blogId)
+    );
     const [blogData, setBlogData] = useState({
         title: blog.title,
         content: blog.content,
@@ -17,12 +19,18 @@ const EditBlog = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         if (blogData.title && blogData.content) {
-            dispatch(blogUpdated(blogData.title, blogData.content));
+            dispatch(
+                blogUpdated({
+                    id: blogId,
+                    title: blogData.title,
+                    content: blogData.content,
+                })
+            );
             setBlogData({
                 title: '',
                 content: '',
             });
-            navigate('/');
+            navigate(`/blog/${blogId}`);
         }
     };
 
