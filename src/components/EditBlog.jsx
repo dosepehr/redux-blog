@@ -1,18 +1,23 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { blogAdded } from '../reducers/blogsSlice';
-import { useNavigate } from 'react-router-dom';
-const CreateBlog = () => {
-    const [blogData, setBlogData] = useState({});
+import { useDispatch, useSelector } from 'react-redux';
+import { blogUpdated } from '../reducers/blogsSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+const EditBlog = () => {
+    const { blogId } = useParams();
+    const blog = useSelector((state) => state.blogs.find(blog => blog.id == blogId))    
+    const [blogData, setBlogData] = useState({
+        title: blog.title,
+        content: blog.content,
+    });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const inputChangeHandler = (e) => {
         setBlogData({ ...blogData, [e.target.name]: e.target.value });
     };
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
     const submitHandler = (e) => {
         e.preventDefault();
         if (blogData.title && blogData.content) {
-            dispatch(blogAdded(blogData.title,blogData.content));
+            dispatch(blogUpdated(blogData.title, blogData.content));
             setBlogData({
                 title: '',
                 content: '',
@@ -20,9 +25,14 @@ const CreateBlog = () => {
             navigate('/');
         }
     };
+
+    if (!blog) {
+        return <p>پستی که دنبالش میگردی وجود نداره دوست من</p>;
+    }
+
     return (
         <div className='px-10'>
-            <h2 className='text-3xl font-semibold mt-5'>ساخت پست جدید</h2>
+            <h2 className='text-3xl font-semibold mt-5'>ویرایش پست</h2>
             <form autoComplete='off' onSubmit={(e) => submitHandler(e)}>
                 <div className='flex flex-col mt-10 justify-center'>
                     <label htmlFor='title'>عنوان پست :</label>
@@ -46,11 +56,11 @@ const CreateBlog = () => {
                     ></textarea>
                 </div>
                 <button className='bg-orange-600 text-white px-2 py-3 rounded-md mt-5'>
-                    ذخیره پست
+                    ذخیره تغییرات
                 </button>
             </form>
         </div>
     );
 };
 
-export default CreateBlog;
+export default EditBlog;
