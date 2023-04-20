@@ -31,13 +31,13 @@ const Blog = () => {
                     <ShowAuthor authorId={blog.authorId} />
                 </div>
             </div>
+            <ReactionBtns blogId={blog.id} {...blog.reactions} />
             <Link
                 to={`/edit-blog/${blog.id}`}
                 className='bg-cyan-300 px-2 py-3 rounded-lg hover:bg-sky-400 duration-300'
             >
                 ویرایش پست
             </Link>
-            <ReactionBtns blogId={blog.id} {...blog.reactions} />
             <button
                 className='border border-gray-400 rounded-lg px-2 py-3 mr-4 hover:bg-slate-300 duration-300'
                 onClick={() => {

@@ -18,7 +18,7 @@ const ReactionBtns = ({ blogId, ...reactions }) => {
             {Object.entries(reactionEmoji).map(([name, emoji]) => {
                 return (
                     <button
-                        className='mx-2 border border-gray-300 p-2 mb-2'
+                        className='mx-2 border border-gray-300 p-2 mb-2 hover:bg-gray-100 duration-300'
                         key={name}
                         type='button'
                         onClick={() => reactionHandler(name)}
