@@ -28,6 +28,7 @@ const Blog = () => {
                 ویرایش پست
             </Link>
             <button
+                className='border border-gray-400 rounded-lg px-2 py-3 mr-4 hover:bg-slate-300 duration-300'
                 onClick={() => {
                     handleDelete(blog.id);
                 }}
