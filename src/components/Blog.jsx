@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { blogDeleted, selectBlogById } from '../reducers/blogsSlice';
+import { ShowAuthor, ShowTime } from './';
 const Blog = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -21,6 +22,15 @@ const Blog = () => {
             <p className='text-2xl font-bold'>{blog.title}</p>
             <p className='text-xl mt-5 mb-10'>{blog.content}</p>
 
+            <div className='mb-10 flex'>
+                <div>
+                    <ShowTime timestamp={blog.date} />
+                </div>
+                <p className='mx-1'>توسط</p>
+                <div>
+                    <ShowAuthor authorId={blog.authorId} />
+                </div>
+            </div>
             <Link
                 to={`/edit-blog/${blog.id}`}
                 className='bg-cyan-300 px-2 py-3 rounded-lg hover:bg-sky-400 duration-300'
