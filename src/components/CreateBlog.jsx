@@ -64,6 +64,7 @@ const CreateBlog = () => {
                 </select>
                 <button className='bg-orange-600 text-white px-2 py-3 rounded-md mt-5'>
                     ذخیره پست
+                    ذخیره پست
                 </button>
             </form>
         </div>
