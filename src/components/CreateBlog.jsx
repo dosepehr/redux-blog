@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { blogAdded } from '../reducers/blogsSlice';
 import { useNavigate } from 'react-router-dom';
-import { selectAllUsers } from '../reducers/usersSlice';
 const CreateBlog = () => {
-    const users = useSelector((action) => selectAllUsers(action));
+    const users = useSelector((state) => state.users);
     const [blogData, setBlogData] = useState({});
     const inputChangeHandler = (e) => {
         setBlogData({ ...blogData, [e.target.name]: e.target.value });
