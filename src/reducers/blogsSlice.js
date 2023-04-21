@@ -1,11 +1,17 @@
-import { createSlice, nanoid ,} from '@reduxjs/toolkit';
+import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
+import { getAllBlogs } from '../services';
+
+export const fetchBlogs = createAsyncThunk('/blogs/fetchBlogs', async () => {
+    const { data } = await getAllBlogs();
+    return data;
+});
 
 const blogsSlice = createSlice({
     name: 'blogs',
     initialState: {
         blogs: [],
         status: 'idle',
-        error:null
+        error: null,
     },
     reducers: {
         blogAdded: {
@@ -43,6 +49,20 @@ const blogsSlice = createSlice({
                 selectedBlog.reactions[reaction]++;
             }
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchBlogs.pending, (state, action) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchBlogs.fulfilled, (state, action) => {
+                state.status = 'completed';
+                state.blogs = action.payload;
+            })
+            .addCase(fetchBlogs.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            });
     },
 });
 
