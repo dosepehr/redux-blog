@@ -1,4 +1,4 @@
-export { default as Blogs } from './Blogs';
+export { default as Home } from './Home';
 export { default as Blog } from './Blog';
 export { default as CreateBlog } from './CreateBlog';
 export { default as EditBlog } from './EditBlog';
@@ -9,3 +9,4 @@ export { default as Spinner } from './Spinner';
 export { default as Navbar } from './Navbar';
 export { default as UsersList } from './UsersList';
 export { default as User } from './User';
+export { default as BlogsList } from './BlogsList';
