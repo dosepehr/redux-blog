@@ -3,6 +3,7 @@ import { getAllBlogs } from '../services';
 
 export const fetchBlogs = createAsyncThunk('/blogs/fetchBlogs', async () => {
     const { data } = await getAllBlogs();
+    // returns as action.payload
     return data;
 });
 
