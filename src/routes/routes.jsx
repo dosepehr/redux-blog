@@ -24,7 +24,7 @@ export const routes = createBrowserRouter([
                 element: <EditBlog />,
             },
             {
-                path: '/usersList',
+                path: '/users',
                 element: <UsersList />,
             },
         ],

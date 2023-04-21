@@ -11,7 +11,7 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className='bg-yellow-300 w-fit py-2 hover:bg-orange-300 hover:shadow-lg shadow-slate-500 duration-300'>
-                <Link to='/usersList' >مشاهده لیست نویسندگان</Link>
+                <Link to='/users' >مشاهده لیست نویسندگان</Link>
             </div>
         </>
     );
