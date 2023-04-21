@@ -1,22 +1,49 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { blogAdded } from '../reducers/blogsSlice';
+import { addNewBlog } from '../reducers/blogsSlice';
 import { useNavigate } from 'react-router-dom';
 import { selectAllUsers } from '../reducers/usersSlice';
+import { nanoid } from '@reduxjs/toolkit';
 const CreateBlog = () => {
     const users = useSelector((state) => selectAllUsers(state));
     const [blogData, setBlogData] = useState({});
+    const [requestStatus, setRequestedStatus] = useState('idle');
     const inputChangeHandler = (e) => {
         setBlogData({ ...blogData, [e.target.name]: e.target.value });
     };
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        if (blogData.title && blogData.content && blogData.authorId) {
-            dispatch(
-                blogAdded(blogData.title, blogData.content, blogData.authorId)
-            );
+        if (
+            blogData.title &&
+            blogData.content &&
+            blogData.authorId &&
+            requestStatus == 'idle'
+        ) {
+            try {
+                setRequestedStatus('pending');
+                await dispatch(
+                    addNewBlog({
+                        id: nanoid(),
+                        date: new Date().toISOString(),
+                        title: blogData.title,
+                        content: blogData.content,
+                        authorId: blogData.authorId,
+                        reactions: {
+                            thumbsUp: '0',
+                            hooray: '0',
+                            heart: '0',
+                            rocket: '0',
+                            eyes: '0',
+                        },
+                    })
+                );
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setRequestedStatus('idle');
+            }
             setBlogData({
                 title: '',
                 content: '',
@@ -63,8 +90,7 @@ const CreateBlog = () => {
                     ))}
                 </select>
                 <button className='bg-orange-600 text-white px-2 py-3 rounded-md mt-5'>
-                    ذخیره پست
-                    ذخیره پست
+                    ذخیره پست ذخیره پست
                 </button>
             </form>
         </div>
