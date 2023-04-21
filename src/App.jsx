@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { Navbar, Spinner } from './components';
 import { fetchBlogs } from './reducers/blogsSlice';
 import { fetchUsers } from './reducers/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,10 +23,10 @@ function App() {
         }
     }, [blogStatus, usersStatus, dispatch]);
     return (
-        <div className='app'>
+        <>
             <Navbar />
-            {loading ? <p>it's loading</p> : <Outlet />}
-        </div>
+            {loading ? <Spinner /> : <Outlet />}
+        </>
     );
 }
 
