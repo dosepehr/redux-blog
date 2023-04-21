@@ -1,8 +1,8 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectAllBlogs } from '../reducers/blogsSlice';
 import { ShowTime, ShowAuthor, ReactionBtns } from './';
+
 const Blogs = () => {
     const blogs = useSelector((state) => selectAllBlogs(state));
     return (
