@@ -17,6 +17,7 @@ const User = () => {
             {/* TODO 
             1. add find user route to services to check if the user exists
              */}
+            <p className='my-4 mx-10 font-bold text-3xl'>پست های {user.name}</p>
             {user ? (
                 <BlogsList blogs={blogs} noBlogs={`برای ${user.name} هیچ پستی پیدا نشد`} />
             ) : (
