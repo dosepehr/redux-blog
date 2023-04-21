@@ -7,3 +7,4 @@ export { default as ShowAuthor } from './ShowAuthor';
 export { default as ReactionBtns } from './ReactionBtns';
 export { default as Spinner } from './Spinner';
 export { default as Navbar } from './Navbar';
+export { default as UsersList } from './UsersList';
