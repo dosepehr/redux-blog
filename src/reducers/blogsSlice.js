@@ -1,5 +1,5 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
-import { createBlog, getAllBlogs } from '../services';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createBlog, getAllBlogs, deleteBlog } from '../services';
 
 export const fetchBlogs = createAsyncThunk('/blogs/fetchBlogs', async () => {
     const { data } = await getAllBlogs();
@@ -11,6 +11,13 @@ export const addNewBlog = createAsyncThunk(
     async (blogInfo) => {
         const { data } = await createBlog(blogInfo);
         return data;
+    }
+);
+export const removeBlog = createAsyncThunk(
+    '/blogs/deleteBlog',
+    async (blogId) => {
+        await deleteBlog(blogId);
+        return blogId;
     }
 );
 
@@ -28,11 +35,6 @@ const blogsSlice = createSlice({
             if (existingBlog) {
                 (existingBlog.title = title), (existingBlog.content = content);
             }
-        },
-        blogDeleted: (state, action) => {
-            state.blogs = state.blogs.filter(
-                (item) => item.id !== action.payload.id
-            );
         },
         blogReacted: (state, action) => {
             const { reaction, blogId } = action.payload;
@@ -57,6 +59,11 @@ const blogsSlice = createSlice({
             })
             .addCase(addNewBlog.fulfilled, (state, action) => {
                 state.blogs.push(action.payload);
+            })
+            .addCase(removeBlog.fulfilled, (state, action) => {
+                state.blogs = state.blogs.filter(
+                    (blog) => blog.id !== action.payload
+                );
             });
     },
 });
@@ -65,6 +72,6 @@ export const selectAllBlogs = (state) => state.blogs.blogs;
 export const selectBlogById = (state, blogId) =>
     state.blogs.blogs.find((blog) => blog.id === blogId);
 
-export const { blogUpdated, blogDeleted, blogReacted } = blogsSlice.actions;
+export const { blogUpdated, blogReacted } = blogsSlice.actions;
 
 export default blogsSlice.reducer;
