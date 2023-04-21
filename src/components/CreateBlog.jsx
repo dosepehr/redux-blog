@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { blogAdded } from '../reducers/blogsSlice';
 import { useNavigate } from 'react-router-dom';
+import { selectAllUsers } from '../reducers/usersSlice';
 const CreateBlog = () => {
-    const users = useSelector((state) => state.users);
+    const users = useSelector((state) => selectAllUsers(state));
     const [blogData, setBlogData] = useState({});
     const inputChangeHandler = (e) => {
         setBlogData({ ...blogData, [e.target.name]: e.target.value });
@@ -14,7 +15,7 @@ const CreateBlog = () => {
         e.preventDefault();
         if (blogData.title && blogData.content && blogData.authorId) {
             dispatch(
-                blogAdded(blogData.title, blogData.content, +blogData.authorId)
+                blogAdded(blogData.title, blogData.content, blogData.authorId)
             );
             setBlogData({
                 title: '',
@@ -61,9 +62,7 @@ const CreateBlog = () => {
                         </option>
                     ))}
                 </select>
-                <button
-                    className='bg-orange-600 text-white px-2 py-3 rounded-md mt-5'
-                >
+                <button className='bg-orange-600 text-white px-2 py-3 rounded-md mt-5'>
                     ذخیره پست
                 </button>
             </form>

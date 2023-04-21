@@ -9,7 +9,7 @@ const blogsSlice = createSlice({
                 date: new Date().toISOString(),
                 title: 'اولین پست',
                 content: 'محتوای اولین پست',
-                authorId: 1,
+                authorId: 'hlWKxV2d4aFLx6SaAuKSj',
                 reactions: {
                     thumbsUp: 0,
                     hooray: 1,
@@ -23,7 +23,7 @@ const blogsSlice = createSlice({
                 date: new Date().toISOString(),
                 title: 'دومین پست',
                 content: 'محتوای دومین پست',
-                authorId: 2,
+                authorId: 'wUJhp9hcWY_hxt1EW1Y8t',
                 reactions: {
                     thumbsUp: 1,
                     hooray: 0,
