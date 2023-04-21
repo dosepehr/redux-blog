@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { createBlog, getAllBlogs, deleteBlog } from '../services';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import { createBlog, getAllBlogs, deleteBlog, updateBlog } from '../services';
 
 export const fetchBlogs = createAsyncThunk('/blogs/fetchBlogs', async () => {
     const { data } = await getAllBlogs();
@@ -21,6 +21,11 @@ export const removeBlog = createAsyncThunk(
     }
 );
 
+export const editBlog = createAsyncThunk('/blogs/edit', async (blogInfo) => {
+    const { data } = await updateBlog(blogInfo, blogInfo.id);
+    return data;
+});
+
 const blogsSlice = createSlice({
     name: 'blogs',
     initialState: {
@@ -29,13 +34,6 @@ const blogsSlice = createSlice({
         error: null,
     },
     reducers: {
-        blogUpdated: (state, action) => {
-            const { id, title, content } = action.payload;
-            const existingBlog = state.blogs.find((blog) => blog.id === id);
-            if (existingBlog) {
-                (existingBlog.title = title), (existingBlog.content = content);
-            }
-        },
         blogReacted: (state, action) => {
             const { reaction, blogId } = action.payload;
             const selectedBlog = state.blogs.find((blog) => blog.id === blogId);
@@ -64,6 +62,13 @@ const blogsSlice = createSlice({
                 state.blogs = state.blogs.filter(
                     (blog) => blog.id !== action.payload
                 );
+            })
+            .addCase(editBlog.fulfilled, (state, action) => {
+                const { id } = action.payload;
+                const editedBlogIndex = state.blogs.findIndex(
+                    (blog) => blog.id === id
+                );
+                state.blogs[editedBlogIndex] = action.payload;
             });
     },
 });
@@ -72,6 +77,6 @@ export const selectAllBlogs = (state) => state.blogs.blogs;
 export const selectBlogById = (state, blogId) =>
     state.blogs.blogs.find((blog) => blog.id === blogId);
 
-export const { blogUpdated, blogReacted } = blogsSlice.actions;
+export const {  blogReacted } = blogsSlice.actions;
 
 export default blogsSlice.reducer;

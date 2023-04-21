@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { blogUpdated, selectBlogById } from '../reducers/blogsSlice';
+import { editBlog, selectBlogById } from '../reducers/blogsSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 const EditBlog = () => {
     const { blogId } = useParams();
@@ -18,10 +18,13 @@ const EditBlog = () => {
         e.preventDefault();
         if (blogData.title && blogData.content) {
             dispatch(
-                blogUpdated({
+                editBlog({
                     id: blogId,
-                    title: blogData.title,
+                    date: blog.date,
                     content: blogData.content,
+                    title: blogData.title,
+                    authorId: blog.authorId,
+                    reactions: blog.reactions,
                 })
             );
             setBlogData({
