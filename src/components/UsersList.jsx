@@ -17,6 +17,7 @@ const UsersList = () => {
                     id: nanoid(),
                 })
             );
+            setUser('');
         }
     };
     const inputChangeHandler = (e) => {
@@ -36,7 +37,10 @@ const UsersList = () => {
                             className='bg-sky-200 p-2 flex items-center justify-between'
                         >
                             <Link to={`/user/${user.id}`}>{user.name}</Link>
-                            <span className='mr-10 bg-red-500 p-3 text-2xl' onClick={()=>handleDetele(user.id)} >
+                            <span
+                                className='mr-10 bg-red-500 p-3 text-2xl'
+                                onClick={() => handleDetele(user.id)}
+                            >
                                 &otimes;
                             </span>
                         </li>

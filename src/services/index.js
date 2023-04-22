@@ -55,12 +55,12 @@ export const deleteBlog = (blogId) => {
 // * http://localhost:9000/users
 export const createUser = (userInfo) => {
     const url = `${BASE_URL}/users`;
-    axios.post(url, userInfo);
+    return axios.post(url, userInfo);
 };
 
 // ! delete a user
 // * http://localhost:9000/users/:userId
 export const deleteUser = (userId) => {
     const url = `${BASE_URL}/users/${userId}`;
-    axios.delete(url);
+    return axios.delete(url);
 };
