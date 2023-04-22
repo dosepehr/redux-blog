@@ -50,3 +50,10 @@ export const deleteBlog = (blogId) => {
     const url = `${BASE_URL}/blogs/${blogId}`;
     return axios.delete(url);
 };
+
+// ! create a user
+// * http://localhost:9000/users
+export const createUser = (userInfo) => {
+    const url = `${BASE_URL}/users`;
+    axios.post(url, userInfo);
+};
