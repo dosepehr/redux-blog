@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { addNewUser, selectAllUsers } from '../reducers/usersSlice';
+import { addNewUser, removeUser, selectAllUsers } from '../reducers/usersSlice';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -7,7 +7,7 @@ import { nanoid } from '@reduxjs/toolkit';
 const UsersList = () => {
     const dispatch = useDispatch();
     const [user, setUser] = useState('');
-    const users = useSelector((state) => selectAllUsers(state));
+    const users = useSelector(selectAllUsers);
     const submitHandler = async (e) => {
         e.preventDefault();
         if (user) {
@@ -22,14 +22,23 @@ const UsersList = () => {
     const inputChangeHandler = (e) => {
         setUser(e.target.value);
     };
+    const handleDetele = (id) => {
+        dispatch(removeUser(id));
+    };
     return (
         <div>
             <p className='mt-5'>لیست نویسندگان</p>
-            <ul className='space-y-3 mt-3 w-fit'>
+            <ul className='space-y-4 mt-3 w-fit'>
                 {users.length &&
                     users.map((user) => (
-                        <li key={user.id} className='bg-sky-200'>
+                        <li
+                            key={user.id}
+                            className='bg-sky-200 p-2 flex items-center justify-between'
+                        >
                             <Link to={`/user/${user.id}`}>{user.name}</Link>
+                            <span className='mr-10 bg-red-500 p-3 text-2xl' onClick={()=>handleDetele(user.id)} >
+                                &otimes;
+                            </span>
                         </li>
                     ))}
             </ul>
