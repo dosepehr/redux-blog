@@ -1,8 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllUsers } from '../services';
+import { createUser, getAllUsers } from '../services';
 
 export const fetchUsers = createAsyncThunk('/users/fetchUsers', async () => {
     const { data } = await getAllUsers();
+    return data;
+});
+export const addNewUser = createAsyncThunk('/users/addNewUser', async (userInfo) => {
+    const { data } = await createUser(userInfo);
     return data;
 });
 
@@ -26,6 +30,9 @@ const usersSlice = createSlice({
             .addCase(fetchUsers.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
+            })
+            .addCase(addNewUser.fulfilled, (state, action) => {
+                state.users.push(action.payload);
             });
     },
 });
