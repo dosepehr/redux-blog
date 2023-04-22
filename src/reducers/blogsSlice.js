@@ -7,6 +7,7 @@ import {
 import { createBlog, getAllBlogs, deleteBlog, updateBlog } from '../services';
 
 const blogAdaptor = createEntityAdapter({
+    // selectId:blogId if the unique key name wasn't id
     sortComparer: (a, b) => b.date.localeCompare(a.date),
 });
 const initialState = blogAdaptor.getInitialState({
@@ -66,28 +67,11 @@ const blogsSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.error.message;
             })
-            .addCase(addNewBlog.fulfilled, (state, action) => {
-                // state.blogs.push(action.payload);
-                blogAdaptor.addOne(action.payload);
-            })
-            .addCase(removeBlog.fulfilled, (state, action) => {
-                state.blogs = state.blogs.filter(
-                    (blog) => blog.id !== action.payload
-                );
-            })
-            .addCase(editBlog.fulfilled, (state, action) => {
-                const { id } = action.payload;
-                const updatedBlogIndex = state.blogs.findIndex(
-                    (blog) => blog.id === id
-                );
-                state.blogs[updatedBlogIndex] = action.payload;
-            });
+            .addCase(addNewBlog.fulfilled, blogAdaptor.addOne)
+            .addCase(removeBlog.fulfilled, blogAdaptor.removeOne)
+            .addCase(editBlog.fulfilled, blogAdaptor.updateOne);
     },
 });
-
-// export const selectAllBlogs = (state) => state.blogs.blogs
-// export const selectBlogById = (state, blogId) =>
-//     state.blogs.blogs.find((blog) => blog.id === blogId);
 
 export const {
     selectAll: selectAllBlogs,
